@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+body {
+  font-family: Segoe UI, sans-serif;
+
+}
+.bank-bg {
+
+  min-height: 100vh;
+}
+
+/* 🧊 Glassmorphism Card Style */
