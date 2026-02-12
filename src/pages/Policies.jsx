@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API } from "../api";
 
 export default function Policies() {
 
@@ -17,7 +18,7 @@ export default function Policies() {
   // LOAD ALL POLICIES ONCE (for dropdown lists)
   useEffect(() => {
 
-    axios.get("http://localhost:5000/api/list")
+    axios.get(`${API}/api/policies/list`)
       .then(res => {
 
         const depts = [...new Set(res.data.map(d => d.Department))];
