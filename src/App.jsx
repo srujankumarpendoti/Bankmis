@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,Navigate  } from "react-router-dom";
+
 
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -41,8 +42,14 @@ export default function App() {
 
         {/* PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login setUser={setUser} />} />
-
+        <Route
+  path="/login"
+  element={
+    user
+      ? <Navigate to="/dashboard" />
+      : <Login setUser={setUser} />
+  }
+/>
         {/* 🔐 PROTECTED ROUTES */}
         <Route
           element={
