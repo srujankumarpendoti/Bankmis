@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API } from "../api";
 
 export default function SOPs() {
 
@@ -17,7 +18,7 @@ export default function SOPs() {
   // Load dropdown data once
   useEffect(() => {
 
-    axios.get("http://localhost:5000/api/sops/list")
+    axios.get(`${API}/api/sops/list`);
       .then(res => {
 
         const depts = [...new Set(res.data.map(d => d.Department))];
