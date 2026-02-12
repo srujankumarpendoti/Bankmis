@@ -18,7 +18,7 @@ export default function SOPs() {
   // Load dropdown data once
   useEffect(() => {
 
-    axios.get(`${API}/api/sops/list`);
+    axios.get(`${API}/api/sops/list`)
       .then(res => {
 
         const depts = [...new Set(res.data.map(d => d.Department))];
