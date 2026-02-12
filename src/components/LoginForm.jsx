@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginForm({ setUser }) {
-
+const API = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const [employeeId, setEmployeeId] = useState("");
@@ -21,12 +21,12 @@ export default function LoginForm({ setUser }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          employeeId,
-          password,
-        }
-      );
+  `${API}/api/auth/login`,
+  {
+    employeeId,
+    password,
+  }
+);
 
       // 🔥 Save user in App statex
       localStorage.setItem("token", res.data.token);
