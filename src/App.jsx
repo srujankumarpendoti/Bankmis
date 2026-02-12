@@ -39,7 +39,7 @@ export default function App() {
 
       <Routes>
 
-        {/* PUBLIC ROUTES  d*/}
+        {/* PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
 
