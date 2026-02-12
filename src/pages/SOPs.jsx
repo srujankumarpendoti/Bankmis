@@ -15,14 +15,19 @@ export default function SOPs() {
   const [departments, setDepartments] = useState([]);
   const [subDepts, setSubDepts] = useState([]);
 
-  // Load dropdown data once
+  /* ===============================
+     LOAD DROPDOWN DATA
+  =============================== */
   useEffect(() => {
 
-    axios.get(`${API}/api/sops/list`)
+    axios
+      .get(`${API}/api/sops/list`)
       .then(res => {
 
-        const depts = [...new Set(res.data.map(d => d.Department))];
-        const subs = [...new Set(res.data.map(d => d.Sub_Department))];
+        const list = Array.isArray(res.data) ? res.data : [];
+
+        const depts = [...new Set(list.map(d => d.Department))];
+        const subs = [...new Set(list.map(d => d.Sub_Department))];
 
         setDepartments(depts);
         setSubDepts(subs);
@@ -32,22 +37,30 @@ export default function SOPs() {
 
   }, []);
 
-  // Load filtered SOPs
+  /* ===============================
+     LOAD FILTERED DATA
+  =============================== */
   useEffect(() => {
 
     setLoading(true);
 
-    axios.get("http://localhost:5000/api/sops/list", {
-      params:{
-        department,
-        subDept,
-        month,
-        year
-      }
-    })
-    .then(res => setData(res.data || []))
-    .catch(console.error)
-    .finally(()=>setLoading(false));
+    axios
+      .get(`${API}/api/sops/list`, {
+        params: {
+          department,
+          subDept,
+          month,
+          year
+        }
+      })
+      .then(res => {
+
+        const list = Array.isArray(res.data) ? res.data : [];
+        setData(list);
+
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
 
   }, [department, subDept, month, year]);
 
