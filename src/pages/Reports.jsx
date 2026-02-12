@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API } from "../api";
 
 export default function Reports({ user }) {
 
@@ -26,7 +27,7 @@ export default function Reports({ user }) {
     if (mode === "month" && selectedMonth) {
       axios
         .get(
-          `http://localhost:5000/api/reports/monthly/${user.Employee_ID}/${selectedMonth}`
+          `${API}/api/reports/monthly/${user.Employee_ID}/${selectedMonth}`
         )
         .then(res => setReports(res.data))
         .catch(console.error);
@@ -35,7 +36,7 @@ export default function Reports({ user }) {
     if (mode === "annual") {
       axios
         .get(
-          `http://localhost:5000/api/reports/annual/${user.Employee_ID}`
+          `${API}/api/reports/annual/${user.Employee_ID}`
         )
         .then(res => setReports(res.data))
         .catch(console.error);
