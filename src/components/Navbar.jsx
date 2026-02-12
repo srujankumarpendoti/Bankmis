@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
-import { BellIcon } from '@heroicons/react/24/outline'
+import { BellIcon, UserCircleIcon } from '@heroicons/react/24/outline'
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Navbar({ user, setUser }) {
@@ -7,7 +7,6 @@ export default function Navbar({ user, setUser }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 🔥 Detect login page automatically
   const isLoginPage = location.pathname === "/login";
 
   const handleLogout = () => {
@@ -23,7 +22,10 @@ export default function Navbar({ user, setUser }) {
       <div className="flex h-16 items-center justify-between w-full">
 
         {/* LEFT — LOGO */}
-        <div className="flex items-center gap-3">
+        <div 
+          onClick={() => navigate("/")}
+          className="flex items-center gap-3 cursor-pointer"
+        >
           <img src="/gcub_logo2.png" className="h-10 w-auto" />
           <span className="text-white text-lg font-semibold">
             Gayatri Bank
@@ -39,7 +41,7 @@ export default function Navbar({ user, setUser }) {
             </button>
           )}
 
-          {/* ⭐ LOGIN BUTTON */}
+          {/* LOGIN BUTTON */}
           {!user && !isLoginPage && (
             <button
               onClick={() => navigate("/login")}
@@ -49,19 +51,21 @@ export default function Navbar({ user, setUser }) {
             </button>
           )}
 
-          {/* ⭐ PROFILE MENU */}
+          {/* PROFILE MENU */}
           {user && (
             <Menu as="div" className="relative">
-              <MenuButton className="text-gray-300 hover:text-white text-sm">
-                {user.Employee_Name}
+              <MenuButton className="text-gray-300 hover:text-white">
+                <UserCircleIcon className="h-8 w-8" />
               </MenuButton>
 
               <MenuItems className="absolute right-0 mt-2 w-40 rounded-md bg-white shadow-lg outline outline-black/5">
 
                 <MenuItem>
                   {({ active }) => (
-                    <button className={`block w-full text-left px-4 py-2 text-sm ${active ? "bg-gray-100" : ""}`}>
-                      Profile
+                    <button 
+                      className={`block w-full text-left px-4 py-2 text-sm ${active ? "bg-gray-100" : ""}`}
+                    >
+                      {user.Employee_Name}
                     </button>
                   )}
                 </MenuItem>
