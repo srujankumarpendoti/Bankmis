@@ -21,7 +21,7 @@ export default function SOPs() {
   useEffect(() => {
 
     axios
-      .get(`${API}/api/sops/list`)
+      .get(`https://bankmis-backend.onrender.com/api/sops/list`)
       .then(res => {
 
         const list = Array.isArray(res.data) ? res.data : [];
