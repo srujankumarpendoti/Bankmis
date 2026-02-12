@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API } from "../api";
 
 export default function SOPs() {
 
@@ -15,19 +14,14 @@ export default function SOPs() {
   const [departments, setDepartments] = useState([]);
   const [subDepts, setSubDepts] = useState([]);
 
-  /* ===============================
-     LOAD DROPDOWN DATA
-  =============================== */
+  // Load dropdown data once
   useEffect(() => {
 
-    axios
-      .get(`https://bankmis-backend.onrender.com/api/sops/list`)
+    axios.get("https://bankmis-backend.onrender.com/api/sops/list")
       .then(res => {
 
-        const list = Array.isArray(res.data) ? res.data : [];
-
-        const depts = [...new Set(list.map(d => d.Department))];
-        const subs = [...new Set(list.map(d => d.Sub_Department))];
+        const depts = [...new Set(res.data.map(d => d.Department))];
+        const subs = [...new Set(res.data.map(d => d.Sub_Department))];
 
         setDepartments(depts);
         setSubDepts(subs);
@@ -37,30 +31,22 @@ export default function SOPs() {
 
   }, []);
 
-  /* ===============================
-     LOAD FILTERED DATA
-  =============================== */
+  // Load filtered SOPs
   useEffect(() => {
 
     setLoading(true);
 
-    axios
-      .get(`${API}/api/sops/list`, {
-        params: {
-          department,
-          subDept,
-          month,
-          year
-        }
-      })
-      .then(res => {
-
-        const list = Array.isArray(res.data) ? res.data : [];
-        setData(list);
-
-      })
-      .catch(console.error)
-      .finally(() => setLoading(false));
+    axios.get("https://bankmis-backend.onrender.com/api/sops/list", {
+      params:{
+        department,
+        subDept,
+        month,
+        year
+      }
+    })
+    .then(res => setData(res.data || []))
+    .catch(console.error)
+    .finally(()=>setLoading(false));
 
   }, [department, subDept, month, year]);
 
