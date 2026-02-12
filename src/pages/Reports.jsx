@@ -27,7 +27,7 @@ export default function Reports({ user }) {
     if (mode === "month" && selectedMonth) {
       axios
         .get(
-          `${API}/api/reports/monthly/${user.Employee_ID}/${selectedMonth}`
+          `https://bankmis-backend.onrender.com/api/reports/monthly/${user.Employee_ID}/${selectedMonth}`
         )
         .then(res => setReports(res.data))
         .catch(console.error);
@@ -36,7 +36,7 @@ export default function Reports({ user }) {
     if (mode === "annual") {
       axios
         .get(
-          `${API}/api/reports/annual/${user.Employee_ID}`
+          `https://bankmis-backend.onrender.com/api/reports/annual/${user.Employee_ID}`
         )
         .then(res => setReports(res.data))
         .catch(console.error);
