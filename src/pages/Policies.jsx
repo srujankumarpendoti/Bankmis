@@ -18,7 +18,7 @@ export default function Policies() {
   // LOAD ALL POLICIES ONCE (for dropdown lists)
   useEffect(() => {
 
-    axios.get(`${API}/api/policies/list`)
+    axios.get(`https://bankmis-backend.onrender.com/api/policies/list`)
       .then(res => {
 
         const depts = [...new Set(res.data.map(d => d.Department))];
